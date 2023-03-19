@@ -14,7 +14,7 @@ describe("fizzbuzz", () => {
   });
 
   it("returns the input number as a string", () => {
-    expect(fizzBuzz(50)).toBe("50");
+    expect(fizzBuzz(52)).toBe("52");
     expect(fizzBuzz(43)).toBe("43");
   });
 
@@ -26,5 +26,10 @@ describe("fizzbuzz", () => {
   it(`returns "Fizz" for multiples of 3 but NOT 5`, () => {
     expect(fizzBuzz(3)).toBe("Fizz");
     expect(fizzBuzz(15) === "Fizz").toBe(false);
+  });
+
+  it(`returns "Buzz" for multiples of 5 but NOT 3`, () => {
+    expect(fizzBuzz(5)).toBe("Buzz");
+    expect(fizzBuzz(15) === "Buzz").toBe(false);
   });
 });
