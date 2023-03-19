@@ -12,4 +12,9 @@ describe("fizzbuzz", () => {
     expect(typeof fizzBuzz(100)).toBe("string");
     expect(() => fizzBuzz(101)).toThrowError();
   });
+
+  it("returns the input number as a string", () => {
+    expect(fizzBuzz(50)).toBe("50");
+    expect(fizzBuzz(42)).toBe("42");
+  });
 });
