@@ -15,11 +15,16 @@ describe("fizzbuzz", () => {
 
   it("returns the input number as a string", () => {
     expect(fizzBuzz(50)).toBe("50");
-    expect(fizzBuzz(42)).toBe("42");
+    expect(fizzBuzz(43)).toBe("43");
   });
 
   it(`returns "FizzBuzz" for multiples of both 3 and 5`, () => {
     expect(fizzBuzz(15)).toBe("FizzBuzz");
     expect(fizzBuzz(30)).toBe("FizzBuzz");
+  });
+
+  it(`returns "Fizz" for multiples of 3 but NOT 5`, () => {
+    expect(fizzBuzz(3)).toBe("Fizz");
+    expect(fizzBuzz(15) === "Fizz").toBe(false);
   });
 });
