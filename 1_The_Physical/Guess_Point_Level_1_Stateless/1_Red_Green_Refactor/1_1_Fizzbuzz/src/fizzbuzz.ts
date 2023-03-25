@@ -1,4 +1,7 @@
 export function fizzbuzz(num: number) {
+  if (num > 100) {
+    throw new ReferenceError("Number greater than 100");
+  }
   if (num % 15 === 0) {
     return "FizzBuzz";
   }
