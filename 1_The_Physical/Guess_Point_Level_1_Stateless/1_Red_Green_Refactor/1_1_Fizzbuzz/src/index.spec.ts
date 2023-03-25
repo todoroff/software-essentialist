@@ -5,4 +5,10 @@ describe("fizzbuzz", () => {
       expect(fizzbuzz(number)).toEqual(number.toString());
     });
   });
+
+  it("returns 'FizzBuzz' for multiples of 15", () => {
+    [15, 30, 45, 60].forEach((number) => {
+      expect(fizzbuzz(number)).toEqual("FizzBuzz");
+    });
+  });
 });
