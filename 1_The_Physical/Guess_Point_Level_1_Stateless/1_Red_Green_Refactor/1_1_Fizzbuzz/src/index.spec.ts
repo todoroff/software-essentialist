@@ -29,4 +29,10 @@ describe("fizzbuzz", () => {
       expect(() => fizzbuzz(number)).toThrow("Number greater than 100");
     });
   });
+
+  it("doesn't accept numbers less than 1", () => {
+    [0.99, 0, -1, -5, -999].forEach((number) => {
+      expect(() => fizzbuzz(number)).toThrow("Number less than 1");
+    });
+  });
 });
