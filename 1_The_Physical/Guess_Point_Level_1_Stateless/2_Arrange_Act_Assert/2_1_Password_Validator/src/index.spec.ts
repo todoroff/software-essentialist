@@ -6,4 +6,10 @@ describe("password validator", () => {
     expect(validationResult.result).toBeFalsy();
     expect(validationResult.errors).toContain("TooShort");
   });
+
+  it('returns an error to indicate the password is too long, for strings like "nemamkakvopovechedadobavq" that are more than 15 characters', () => {
+    const validationResult = validatePassword("nemamkakvopovechedadobavq");
+    expect(validationResult.result).toBeFalsy();
+    expect(validationResult.errors).toContain("TooLong");
+  });
 });
