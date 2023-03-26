@@ -12,4 +12,10 @@ describe("password validator", () => {
     expect(validationResult.result).toBeFalsy();
     expect(validationResult.errors).toContain("TooLong");
   });
+
+  it('returns an error to indicate the password should contain at least one digit, for strings like "lamepass"', () => {
+    const validationResult = validatePassword("lamepass");
+    expect(validationResult.result).toBeFalsy();
+    expect(validationResult.errors).toContain("NoDigits");
+  });
 });

@@ -9,11 +9,19 @@ export function validatePassword(password: string): PasswordValidationResult {
     result = false;
     errors.push("TooShort");
   }
-
+  if (!containsDigits(password)) {
+    result = false;
+    errors.push("NoDigits");
+  }
   return {
     result,
     errors,
   };
+}
+
+function containsDigits(str: string): boolean {
+  const digitChars = str.split("").filter((char) => !isNaN(Number(char)));
+  return digitChars.length > 0;
 }
 
 export interface PasswordValidationResult {
@@ -21,4 +29,4 @@ export interface PasswordValidationResult {
   errors: PasswordValidationError[];
 }
 
-type PasswordValidationError = "TooShort" | "TooLong";
+type PasswordValidationError = "TooShort" | "TooLong" | "NoDigits";
