@@ -12,4 +12,8 @@ describe("palindrome checker", () => {
   it("should be case insensitive", () => {
     expect(isPalindrome("Mom")).toBeTruthy();
   });
+
+  it('can tell that the phrase "Was It A Rat I Saw" is a palindrome', () => {
+    expect(isPalindrome("Was It A Rat I Saw")).toBeTruthy();
+  });
 });
