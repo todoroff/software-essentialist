@@ -13,6 +13,10 @@ export function validatePassword(password: string): PasswordValidationResult {
     result = false;
     errors.push("NoDigits");
   }
+  if (!containsUppercaseLetters(password)) {
+    result = false;
+    errors.push("NoUppercaseLetters");
+  }
   return {
     result,
     errors,
@@ -24,9 +28,20 @@ function containsDigits(str: string): boolean {
   return digitChars.length > 0;
 }
 
+function containsUppercaseLetters(str: string): boolean {
+  const uppercaseChars = str
+    .split("")
+    .filter((char) => char === char.toUpperCase());
+  return uppercaseChars.length > 0;
+}
+
 export interface PasswordValidationResult {
   result: boolean;
   errors: PasswordValidationError[];
 }
 
-type PasswordValidationError = "TooShort" | "TooLong" | "NoDigits";
+type PasswordValidationError =
+  | "TooShort"
+  | "TooLong"
+  | "NoDigits"
+  | "NoUppercaseLetters";
