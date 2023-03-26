@@ -2,20 +2,21 @@ export function validatePassword(password: string): PasswordValidationResult {
   let errors: PasswordValidationError[] = [];
   let result = true;
 
+  function setError(error: PasswordValidationError): void {
+    result = false;
+    errors.push(error);
+  }
+
   if (password.length > 15) {
-    result = false;
-    errors.push("TooLong");
+    setError("TooLong");
   } else if (password.length < 5) {
-    result = false;
-    errors.push("TooShort");
+    setError("TooShort");
   }
   if (!containsDigits(password)) {
-    result = false;
-    errors.push("NoDigits");
+    setError("NoDigits");
   }
   if (!containsUppercaseLetters(password)) {
-    result = false;
-    errors.push("NoUppercaseLetters");
+    setError("NoUppercaseLetters");
   }
   return {
     result,
