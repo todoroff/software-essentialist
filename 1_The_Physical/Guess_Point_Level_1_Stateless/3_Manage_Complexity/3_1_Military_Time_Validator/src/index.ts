@@ -12,8 +12,7 @@ export function validateTimeRange(timeRange: string): boolean {
     startHour <= MAX_HOUR &&
     endHour <= MAX_HOUR &&
     startMinute <= MAX_MINUTE &&
-    endMinute <= MAX_MINUTE &&
-    startHour * 60 + startMinute < endHour * 60 + endMinute
+    endMinute <= MAX_MINUTE
   );
 }
 
