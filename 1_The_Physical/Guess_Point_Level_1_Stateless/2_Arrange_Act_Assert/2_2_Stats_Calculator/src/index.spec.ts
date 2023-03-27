@@ -14,8 +14,13 @@ describe("stats calculator", () => {
     expect(result.minValue).toEqual(-8);
   });
 
-  it("returns min value of 53 for [2, 4, 21, -8, 53, 40]", () => {
+  it("returns max value of 53 for [2, 4, 21, -8, 53, 40]", () => {
     const result = calculateStats([2, 4, 21, -8, 53, 40]);
     expect(result.maxValue).toEqual(53);
+  });
+
+  it("returns avg value of 18.666666666667 for [2, 4, 21, -8, 53, 40]", () => {
+    const result = calculateStats([2, 4, 21, -8, 53, 40]);
+    expect(result.avgValue).toEqual(18.666666666667);
   });
 });
