@@ -48,6 +48,7 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
+    "install": "^0.13.0",
     "jest-cucumber": "^3.0.1"
   }
 }
