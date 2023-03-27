@@ -23,4 +23,9 @@ describe("stats calculator", () => {
     const result = calculateStats([2, 4, 21, -8, 53, 40]);
     expect(result.avgValue).toEqual(18.666666666667);
   });
+
+  it("returns num elements of 6 for [2, 4, 21, -8, 53, 40]", () => {
+    const result = calculateStats([2, 4, 21, -8, 53, 40]);
+    expect(result.numElements).toEqual(6);
+  });
 });
