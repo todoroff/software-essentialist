@@ -7,4 +7,8 @@ describe("military time validator", () => {
   it('knows that "25:00 - 12:23" is invalid (start hour out of max range)', () => {
     expect(validateTimeRange("25:00 - 12:23")).toBeFalsy();
   });
+
+  it('knows that "125:00 - 12:23" is invalid (start hour out of max range)', () => {
+    expect(validateTimeRange("125:00 - 12:23")).toBeFalsy();
+  });
 });

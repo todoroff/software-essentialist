@@ -1,4 +1,5 @@
 export function validateTimeRange(timeRange: string): boolean {
   const MAX_HOUR = 23;
-  return Number(timeRange.slice(0, 2)) <= MAX_HOUR;
+  const startHour = timeRange.split(":")[0];
+  return Number(startHour) <= MAX_HOUR;
 }
