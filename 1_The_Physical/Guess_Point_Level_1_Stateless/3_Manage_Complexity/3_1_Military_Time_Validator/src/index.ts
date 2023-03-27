@@ -2,6 +2,9 @@ export function validateTimeRange(timeRange: string): boolean {
   const MAX_HOUR = 23;
   const MAX_MINUTE = 59;
 
+  const validFormat = /^\d{2}:\d{2} - \d{2}:\d{2}$/;
+  if (!validFormat.test(timeRange)) return false;
+
   const { startHour, startMinute, endHour, endMinute } =
     getTimeRangeParts(timeRange);
 
