@@ -8,4 +8,9 @@ describe("stats calculator", () => {
     expect(result.avgValue).toBeDefined();
     expect(result.numElements).toBeDefined();
   });
+
+  it("returns min value of -8 for [2, 4, 21, -8, 53, 40]", () => {
+    const result = calculateStats([2, 4, 21, -8, 53, 40]);
+    expect(result.minValue).toEqual(-8);
+  });
 });
