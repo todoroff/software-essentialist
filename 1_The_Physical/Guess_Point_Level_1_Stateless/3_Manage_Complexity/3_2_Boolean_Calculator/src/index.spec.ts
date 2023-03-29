@@ -7,4 +7,8 @@ describe("boolean calculator", () => {
   it('evaluates the expression "FALSE" to false', () => {
     expect(boolCalculator("FALSE")).toBeFalsy();
   });
+
+  it('evaluates the expression "NOT FALSE" to true', () => {
+    expect(boolCalculator("NOT FALSE")).toBeTruthy();
+  });
 });
