@@ -33,7 +33,8 @@ describe("boolean calculator", () => {
       ["TRUE OR FALSE AND NOT FALSE", true],
       ["(TRUE OR TRUE OR TRUE) AND FALSE", false],
       ["NOT (TRUE AND TRUE)", false],
-      ["FALSE OR (FALSE OR (NOT (TRUE AND (TRUE AND FALSE))))", true]
+      ["FALSE OR (FALSE OR (NOT (TRUE AND (TRUE AND FALSE))))", true],
+      ["NOT TRUE AND NOT (TRUE AND TRUE) OR TRUE", true],
     ])("evaluates %p to %p", (expression: string, result: boolean) => {
       expect(boolCalculator(expression)).toEqual(result);
     });
