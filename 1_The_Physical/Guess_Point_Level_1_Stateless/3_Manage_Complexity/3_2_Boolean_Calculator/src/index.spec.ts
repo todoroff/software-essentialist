@@ -31,6 +31,7 @@ describe("boolean calculator", () => {
     it.each([
       ["TRUE OR TRUE OR TRUE AND FALSE", true],
       ["TRUE OR FALSE AND NOT FALSE", true],
+      ["(TRUE OR TRUE OR TRUE) AND FALSE", false],
     ])("evaluates %p to %p", (expression: string, result: boolean) => {
       expect(boolCalculator(expression)).toEqual(result);
     });

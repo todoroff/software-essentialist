@@ -3,22 +3,7 @@ export function boolCalculator(expression: string): boolean {
     return primitiveToBool(expression as Primitive);
   }
 
-  return boolCalculator(
-    expression
-      .replace(/NOT (TRUE|FALSE)/, (match, primitive: Primitive) =>
-        operators.NOT(primitive)
-      )
-      .replace(
-        /(TRUE|FALSE) AND (TRUE|FALSE)/,
-        (match, primitiveA: Primitive, primitiveB: Primitive) =>
-          operators.AND(primitiveA, primitiveB)
-      )
-      .replace(
-        /(TRUE|FALSE) OR (TRUE|FALSE)/,
-        (match, primitiveA: Primitive, primitiveB: Primitive) =>
-          operators.OR(primitiveA, primitiveB)
-      )
-  );
+  return boolCalculator(expressionToPrimitive(expression));
 }
 
 type Primitive = keyof typeof primitives;
@@ -36,6 +21,26 @@ const operators = {
   OR: (a: Primitive, b: Primitive): Primitive =>
     boolToPrimitive(primitiveToBool(a) || primitiveToBool(b)),
 };
+
+function expressionToPrimitive(expression: string): Primitive {
+  return expression
+    .replace(/\((\w+)\)/, (match, expression) => {
+      return expressionToPrimitive(expression);
+    })
+    .replace(/NOT (TRUE|FALSE)/, (match, primitive: Primitive) =>
+      operators.NOT(primitive)
+    )
+    .replace(
+      /(TRUE|FALSE) AND (TRUE|FALSE)/,
+      (match, primitiveA: Primitive, primitiveB: Primitive) =>
+        operators.AND(primitiveA, primitiveB)
+    )
+    .replace(
+      /(TRUE|FALSE) OR (TRUE|FALSE)/,
+      (match, primitiveA: Primitive, primitiveB: Primitive) =>
+        operators.OR(primitiveA, primitiveB)
+    ) as Primitive;
+}
 
 function primitiveToBool(primitive: Primitive): boolean {
   return primitive === primitives.TRUE;
