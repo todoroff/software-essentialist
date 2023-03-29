@@ -4,9 +4,15 @@ export function boolCalculator(expression: string): boolean {
   }
 
   return boolCalculator(
-    expression.replace(/NOT (TRUE|FALSE)/, (match, primitive: Primitive) =>
-      operators.NOT(primitive)
-    )
+    expression
+      .replace(/NOT (TRUE|FALSE)/, (match, primitive: Primitive) =>
+        operators.NOT(primitive)
+      )
+      .replace(
+        /(TRUE|FALSE) AND (TRUE|FALSE)/,
+        (match, primitiveA: Primitive, primitiveB: Primitive) =>
+          operators.AND(primitiveA, primitiveB)
+      )
   );
 }
 
@@ -18,7 +24,10 @@ const primitives = {
 };
 
 const operators = {
-  NOT: (primitive: Primitive) => boolToPrimitive(!primitiveToBool(primitive)),
+  NOT: (primitive: Primitive): Primitive =>
+    boolToPrimitive(!primitiveToBool(primitive)),
+  AND: (a: Primitive, b: Primitive): Primitive =>
+    boolToPrimitive(primitiveToBool(a) && primitiveToBool(b)),
 };
 
 function primitiveToBool(primitive: Primitive): boolean {

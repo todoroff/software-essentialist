@@ -5,6 +5,7 @@ describe("boolean calculator", () => {
     ["FALSE", false],
     ["NOT FALSE", true],
     ["NOT TRUE", false],
+    ["TRUE AND FALSE", false],
   ])("evaluates %p to %p", (expression: string, result: boolean) => {
     expect(boolCalculator(expression)).toEqual(result);
   });
