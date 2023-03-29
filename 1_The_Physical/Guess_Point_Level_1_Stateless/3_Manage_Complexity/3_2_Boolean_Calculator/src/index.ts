@@ -19,6 +19,7 @@ const operators = {
     regex: /\((\w+)\)/,
     replacer: (match: string, expression: string) =>
       operators.PARENS.fn(expression),
+    precedence: 4000,
   },
   NOT: {
     fn: (primitive: Primitive): Primitive =>
@@ -26,6 +27,7 @@ const operators = {
     regex: /NOT (TRUE|FALSE)/,
     replacer: (match: string, primitive: Primitive) =>
       operators.NOT.fn(primitive),
+    precedence: 3000,
   },
   AND: {
     fn: (a: Primitive, b: Primitive): Primitive =>
@@ -33,6 +35,7 @@ const operators = {
     regex: /(TRUE|FALSE) AND (TRUE|FALSE)/,
     replacer: (match: string, primitiveA: Primitive, primitiveB: Primitive) =>
       operators.AND.fn(primitiveA, primitiveB),
+    precedence: 2000,
   },
   OR: {
     fn: (a: Primitive, b: Primitive): Primitive =>
@@ -40,15 +43,21 @@ const operators = {
     regex: /(TRUE|FALSE) OR (TRUE|FALSE)/,
     replacer: (match: string, primitiveA: Primitive, primitiveB: Primitive) =>
       operators.OR.fn(primitiveA, primitiveB),
+    precedence: 1000,
   },
 };
 
 function expressionToPrimitive(expression: string): Primitive {
-  return expression
-    .replace(operators.PARENS.regex, operators.PARENS.replacer)
-    .replace(operators.NOT.regex, operators.NOT.replacer)
-    .replace(operators.AND.regex, operators.AND.replacer)
-    .replace(operators.OR.regex, operators.OR.replacer) as Primitive;
+  return (<(keyof typeof operators)[]>Object.keys(operators))
+    .sort((a, b) => operators[b].precedence - operators[a].precedence)
+    .reduce(
+      (accumulator, current) =>
+        accumulator.replace(
+          operators[current].regex,
+          operators[current].replacer
+        ),
+      expression
+    ) as Primitive;
 }
 
 function primitiveToBool(primitive: Primitive): boolean {
