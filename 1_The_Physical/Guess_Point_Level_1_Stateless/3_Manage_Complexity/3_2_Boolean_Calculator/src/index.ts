@@ -1,3 +1,3 @@
 export function boolCalculator(expression: string) {
-  return true;
+  return expression === "TRUE";
 }
