@@ -13,6 +13,11 @@ export function boolCalculator(expression: string): boolean {
         (match, primitiveA: Primitive, primitiveB: Primitive) =>
           operators.AND(primitiveA, primitiveB)
       )
+      .replace(
+        /(TRUE|FALSE) OR (TRUE|FALSE)/,
+        (match, primitiveA: Primitive, primitiveB: Primitive) =>
+          operators.OR(primitiveA, primitiveB)
+      )
   );
 }
 
@@ -28,6 +33,8 @@ const operators = {
     boolToPrimitive(!primitiveToBool(primitive)),
   AND: (a: Primitive, b: Primitive): Primitive =>
     boolToPrimitive(primitiveToBool(a) && primitiveToBool(b)),
+  OR: (a: Primitive, b: Primitive): Primitive =>
+    boolToPrimitive(primitiveToBool(a) || primitiveToBool(b)),
 };
 
 function primitiveToBool(primitive: Primitive): boolean {
