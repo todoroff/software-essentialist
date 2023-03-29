@@ -26,4 +26,13 @@ describe("boolean calculator", () => {
       expect(boolCalculator(expression)).toEqual(result);
     });
   });
+
+  describe("complex expressions & precedence", () => {
+    it.each([
+      ["TRUE OR TRUE OR TRUE AND FALSE", true],
+      ["TRUE OR FALSE AND NOT FALSE", true],
+    ])("evaluates %p to %p", (expression: string, result: boolean) => {
+      expect(boolCalculator(expression)).toEqual(result);
+    });
+  });
 });
