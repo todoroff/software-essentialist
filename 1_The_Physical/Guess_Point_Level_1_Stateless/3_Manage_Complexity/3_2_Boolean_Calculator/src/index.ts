@@ -2,7 +2,22 @@ export function boolCalculator(expression: string): boolean {
   return primitiveToBool(expressionToPrimitive(expression));
 }
 
-type Primitive = keyof typeof primitives;
+function expressionToPrimitive(expression: string): Primitive {
+  if (expression in primitives) {
+    return expression as Primitive;
+  }
+  const result = (<(keyof typeof operators)[]>Object.keys(operators))
+    .sort((a, b) => operators[b].precedence - operators[a].precedence)
+    .reduce(
+      (accumulator, current) =>
+        accumulator.replace(
+          operators[current].regex,
+          operators[current].replacer
+        ),
+      expression
+    ) as Primitive;
+  return expressionToPrimitive(result);
+}
 
 const primitives = {
   TRUE: "TRUE" as const,
@@ -43,23 +58,6 @@ const operators = {
   },
 };
 
-function expressionToPrimitive(expression: string): Primitive {
-  if (expression in primitives) {
-    return expression as Primitive;
-  }
-  const result = (<(keyof typeof operators)[]>Object.keys(operators))
-    .sort((a, b) => operators[b].precedence - operators[a].precedence)
-    .reduce(
-      (accumulator, current) =>
-        accumulator.replace(
-          operators[current].regex,
-          operators[current].replacer
-        ),
-      expression
-    ) as Primitive;
-  return expressionToPrimitive(result);
-}
-
 function primitiveToBool(primitive: Primitive): boolean {
   return primitive === primitives.TRUE;
 }
@@ -67,3 +65,5 @@ function primitiveToBool(primitive: Primitive): boolean {
 function boolToPrimitive(bool: boolean): Primitive {
   return bool ? primitives.TRUE : primitives.FALSE;
 }
+
+type Primitive = keyof typeof primitives;
