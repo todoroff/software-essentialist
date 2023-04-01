@@ -1,9 +1,5 @@
 export function boolCalculator(expression: string): boolean {
-  if (expression in primitives) {
-    return primitiveToBool(expression as Primitive);
-  }
-
-  return boolCalculator(expressionToPrimitive(expression));
+  return primitiveToBool(expressionToPrimitive(expression));
 }
 
 type Primitive = keyof typeof primitives;
@@ -48,7 +44,10 @@ const operators = {
 };
 
 function expressionToPrimitive(expression: string): Primitive {
-  return (<(keyof typeof operators)[]>Object.keys(operators))
+  if (expression in primitives) {
+    return expression as Primitive;
+  }
+  const result = (<(keyof typeof operators)[]>Object.keys(operators))
     .sort((a, b) => operators[b].precedence - operators[a].precedence)
     .reduce(
       (accumulator, current) =>
@@ -58,6 +57,7 @@ function expressionToPrimitive(expression: string): Primitive {
         ),
       expression
     ) as Primitive;
+  return expressionToPrimitive(result);
 }
 
 function primitiveToBool(primitive: Primitive): boolean {
